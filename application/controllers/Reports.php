@@ -3,11 +3,10 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 /*
- *	@author : Imran Shah
- *  @support: shahmian@gmail.com
- *	date	: 18 April, 2018
- *	Kandi Inventory Management System
- * website: kelextech.com
+ *	@author :Souleymane DIEME
+ *  @support: diemesouley@gmail.com
+ *	date	: 1 decembre, 2019
+ *	gescos
  *  version: 1.0
  */
 class Reports extends MY_Controller
@@ -59,7 +58,7 @@ class Reports extends MY_Controller
         $end_date1 = date('Y-m-d', strtotime($end_date));
 
         $invoice = $this->Main_model->get_invoice_by_date1($start_date1, $end_date1);
-               //echo "<pre>";print_r($invoice);exit;
+               
         if (!empty($invoice)) {
             $this->bps_table();
             foreach ($invoice as $v_invoice) {
@@ -68,8 +67,7 @@ class Reports extends MY_Controller
             }
         }
 
-       // echo "<pre>";print_r($data);exit;
-        //$data['purchases'] = $this->Main_model->getSales($start_date1,$end_date1);
+       
         $data['start'] = $start_date;
         $data['end'] = $end_date;
         $data['items'] = $this->Main_model->select('item');
@@ -111,8 +109,7 @@ class Reports extends MY_Controller
             }
         }
 
-       // echo "<pre>";print_r($data);exit;
-        //$data['purchases'] = $this->Main_model->getSales($start_date1,$end_date1);
+       
         $data['start'] = $start_date;
         $data['end'] = $end_date;
         $data['items'] = $this->Main_model->select('item');

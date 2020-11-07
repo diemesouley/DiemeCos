@@ -3,12 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 /*
- *	@author : Imran Shah
- *  @support: shahmian@gmail.com
- *	date	: 18 April, 2018
- *	Kandi Inventory Management System
- * website: kelextech.com
- *  version: 1.0
+ 
  */
 class Sales extends MY_Controller
 {
@@ -46,6 +41,53 @@ class Sales extends MY_Controller
 
 
     }
+
+    //retour de produit vendu
+	public function retour_produit()
+	{
+			
+			$this->header();
+			
+			//$data = $this->Main_model->getDette();
+			$data = array();
+			$data['data'] = $this->Main_model->getDette();
+			$this->load->view('sales/return_produit', $data);
+		
+			$this->footer();
+
+	}
+	
+	//annuler commande
+	public function annuler_commande($sales)
+	{
+		$ss=0;
+		$query = $this->Main_model->cancel_sales($sales);
+		foreach ($query as $data)
+		{
+			
+			$id = $data['item_id'];
+			$qte = $data['sales_qty'];
+			$stock_qte = $this->Main_model->get_quantite($id);
+			foreach($stock_qte as $s){
+				$ss = $s['stock_qty']+$qte;
+			}
+			$this->Main_model->retour_stock($id,$ss);
+		}
+		$this->db->where('sales_no', $sales);
+		$this->db->delete('sales_detail');
+		
+		$this->db->where('sales_no', $sales);
+		$this->db->delete('sales');
+		$this->session->set_flashdata('warning', 'Produit retourner avec succés');
+
+		redirect(base_url().'index.php/sales/sales_history');
+	}
+	
+	//payement de dette
+	public function payement_dette($sales){
+		$this->Main_model->payement_dette_sales($sales);
+
+	}
 
     // get product list of sales
     public function get_sale_product_list()
@@ -164,7 +206,7 @@ class Sales extends MY_Controller
             $res = $this->db->insert("sales_detail", $data);
 
         }
-        $this->session->set_flashdata("message", "Invoice #($invoice_id) Added Successfully!");
+        $this->session->set_flashdata("message", "Invoice #($invoice_id) Ajouter Avec Succé!");
         redirect(base_url() . "index.php/Sales/sales_history");
 
 
@@ -218,4 +260,36 @@ class Sales extends MY_Controller
         $data['amount'] = $this->Main_model->getSale_Details($id);
         $this->load->view('sales/invoice_print', $data);
     }
+
+    /*********************** commencement ******************/
+	public function new_payement_dette(){
+		$montant_a_payer = $this->input->post('montant');
+		$montant_dette = $this->input->post('balance');
+		//$paid = $this->input->post('paid');
+		$sales_no = $this->input->post('sales_no');
+		$client = $this->input->post('nom_client');
+		$mydate = $this->input->post('mydate');
+        $blc = $montant_dette - $montant_a_payer;
+
+	
+		$data = array(
+			'sales_no' => $sales_no,
+			'montant_verser' => $montant_a_payer,
+			'nom_client' => $client,
+			'date' => date('Y-m-d', strtotime($mydate))
+		);
+
+		$this->db->insert('history_payement_dette',$data);
+        $this->Main_model->payement_dette_sales($sales_no,$montant_a_payer,$blc);
+        
+	}
+
+	public function historique_payement_dette(){
+		$data['history_payement'] = $this->Main_model->select('history_payement_dette');
+        $this->header();
+        $this->load->view('sales/historique_payement', $data);
+        $this->footer();
+	}
+
+	/************* Fin  *************************/
 }

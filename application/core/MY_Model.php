@@ -52,7 +52,7 @@ class MY_Model extends CI_Model
 
         // Set timestamps
         if ($this->_timestamps == TRUE) {
-            $now = date('Y-m-d H:i:s');
+            $now = date('d-m-Y H:i:s');
             $id || $data['created'] = $now;
             $data['modified'] = $now;
         }
@@ -60,9 +60,9 @@ class MY_Model extends CI_Model
 
         // Insert
         if ($id === NULL) {
-            date_default_timezone_set('Asia/karachi');
+            date_default_timezone_set('Afrique/Senegal');
 
-            $entry_date = date("Y-m-d H:i:s");
+            $entry_date = date("d-m-Y H:i:s");
             $data['E_DATE_TIME'] = $entry_date;
             $data['E_USER_ID'] = $this->session->userdata('userid');
             //	!isset($data[$this->_primary_key]) || $data[$this->_primary_key] = NULL;
@@ -72,7 +72,7 @@ class MY_Model extends CI_Model
         } // Update
         else {
 
-            date_default_timezone_set('Asia/karachi');
+            date_default_timezone_set('Afrique/Senegal');
 
             $update_date = date("Y-m-d H:i:s");
             $data['U_DATE_TIME'] = $update_date;

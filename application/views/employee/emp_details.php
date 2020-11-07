@@ -58,7 +58,7 @@
                     <p class="text-muted"> <?php if(empty($empDetail)){
                             echo "<span>NO record</span>";
                         }else{
-                            echo $empDetail['EMP_CELL'];} ?>a</p>
+                            echo $empDetail['EMP_CELL'];} ?></p>
 
                     <hr>
 

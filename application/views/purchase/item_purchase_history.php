@@ -1,5 +1,6 @@
 
 
+
 <div class="row">
     <div class="col-md-12">
         <div class="portlet light">
@@ -18,7 +19,7 @@
                     <hr/>
                     <div class="row">
                         <div class="col-xs-4">
-                            <h3>SUPPLIER:</h3>
+                            <h3>Vendeur:</h3>
                             <ul class="list-unstyled">
                                 <li> <?= $amount->vendor_name ?> </li>
                                 <li> <?= $amount->company_name ?> </li>
@@ -33,16 +34,16 @@
 
                         </div>
                         <div class="col-xs-4 invoice-payment">
-                            <h3>Payment Details:</h3>
+                            <h3>Details Payement:</h3>
                             <div id="invoice">
-                                <div class="date">Date of
-                                    Invoice: <?php echo date('M d,Y',strtotime($amount->purchase_date)); ?></div>
-                                <div class="date">Invoice Status <?php if ($amount->due_amount != 0.00) { ?>
+                                <div class="date">Date de l'
+                                    Achat: <?php echo date('M d,Y',strtotime($amount->purchase_date)); ?></div>
+                                <div class="date">Status Achat <?php if ($amount->due_amount != 0.00) { ?>
                                         <span
                                             class="badge bg-important"><?= $amount->due_amount; ?></span><?php } ?> <?php if ($amount->due_amount == 0.00) {
-                                        echo "<span class='label label-primary'>PAID</span>";
+                                        echo "<span class='label label-primary'>Payé</span>";
                                     } else {
-                                        echo "<span class='label label-warning'>NOT PAID</span>";
+                                        echo "<span class='label label-warning'>En Attente</span>";
                                     }
                                     ?></div>
                             </div>
@@ -54,11 +55,10 @@
                                 <thead>
                                 <tr>
                                     <th> #</th>
-                                    <th> Purchase No</th>
-                                    <th> Item</th>
-                                    <th class="hidden-xs"> Price</th>
-                                    <th class="hidden-xs"> Quantity</th>
-                                    <th class="hidden-xs"> Unit Cost</th>
+                                    <th> N° Achat</th>
+                                    <th> Article</th>
+                                    <th class=""> Prix Unit</th>
+                                    <th class=""> Quantité</th>
                                     <th> Total</th>
                                 </tr>
                                 </thead>
@@ -70,10 +70,9 @@
                                         <td><?php echo $n; ?></td>
                                         <td><?php echo $rows->purchase_no; ?></td>
                                         <td><?php echo $rows->item_name; ?></td>
-                                        <td class="">$ <?php echo $rows->purchase_rate; ?></td>
-                                        <td class="hidden-xs"><?php echo $rows->purchase_qty; ?></td>
-                                        <td class="hidden-xs">$ <?php echo $rows->purchase_rate; ?></td>
-                                        <td class="hidden-xs">$ <?php echo $rows->purchase_amount; ?></td>
+                                        <td class="">Fcfa <?php echo $rows->purchase_rate; ?></td>
+                                        <td class=""><?php echo $rows->purchase_qty; ?></td>
+                                        <td class="">Fcfa <?php echo $rows->purchase_amount; ?></td>
                                     </tr>
                                     <?php $n++;
                                 } ?>
@@ -101,20 +100,20 @@
                         <div class="col-xs-8 invoice-block">
                             <ul class="list-unstyled amounts">
                                 <li>
-                                    <strong>Sub - Total:</strong> $ <?= $amount->grand_total ?> </li>
+                                    <strong>Sous - Total:</strong> Fcfa <?= $amount->grand_total ?> </li>
                                 <li>
-                                    <strong>Discount:</strong> <?= $amount->purchase_discount ?>%
+                                    <strong>Remise:</strong> <?= $amount->purchase_discount ?>%
                                 </li>
                                 <li>
-                                    <strong>VAT:</strong> -----
+                                    <strong>TVA:</strong> -----
                                 </li>
                                 <li>
-                                    <strong>Grand Total:</strong> $ <?= $amount->purchase_amount_total ?> </li>
+                                    <strong>Somme vercée:</strong> Fcfa <?= $amount->purchase_amount_total ?> </li>
                             </ul>
                             <br/>
                             <a class="btn btn-lg btn-primary hidden-print margin-bottom-5"
-                               onclick="javascript:window.print();"> Print
-                                <i class="fa fa-print"></i>
+                               onclick="javascript:window.print();">
+                                <i class="fa fa-print"></i> Imprimer
                             </a>
                         </div>
                     </div>
@@ -124,5 +123,3 @@
         </div>
     </div>
 </div>
-
-

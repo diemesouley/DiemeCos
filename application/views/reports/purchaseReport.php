@@ -58,7 +58,7 @@
                                         <tr>
                                             <th class="no text-right"><strong>Dkr-771208795</strong></th>
                                             <th class="no text-left">Fournisseur: <strong>Entreprise 1</strong></th>
-                                            <th class="desc">Date de facturation: 2017-04-05</th>
+                                            <th class="desc">''</th>
                                         </tr>
                                         </thead>
                                     </table>
@@ -104,7 +104,7 @@
                             </main>
                             <hr>
                             <footer class="text-center">
-                                <strong>BEB 300</strong>&nbsp;&nbsp;&nbsp;Dkr-0300, Dkr300 Pvt Ltd, Deans Ventre Produit,
+                                <strong>BEB 300</strong>&nbsp;&nbsp;&nbsp;Dkr-0300, Dkr300 Pvt Ltd, Dans Vente Produit,
                                 Cosmetique
                             </footer>
 

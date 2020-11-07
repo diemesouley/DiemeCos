@@ -14,36 +14,36 @@
                         <thead>
                         <tr role="row">
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1"
-                                aria-label="QR Code">
+                                aria-label="QR Code" required>
                                 CODE À BARRE
                             </th>
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1"
-                                aria-label="QR Code">
+                                aria-label="QR Code" required>
                                 NOM DE L'ARTICLE
                             </th>
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1"
-                                aria-label="QR Code">
+                                aria-label="QR Code" required>
                                 CATÉGORIE
                             </th>
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1"
-                                aria-label="QR Code">
+                                aria-label="QR Code" required>
                                 N° Article
                             </th>
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1"
-                                aria-label="QR Code">
+                                aria-label="QR Code" required>
                                 Taille / Model
                             </th>
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1"
-                                aria-label="QR Code">
+                                aria-label="QR Code" required>
                                 COULEUR
                             </th>
 
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1"
-                                aria-label="QR Code">
+                                aria-label="QR Code" required>
                                 Prix Unit
                             </th>
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1"
-                                aria-label="QR Code">
+                                aria-label="QR Code" required>
                                 Qté En Stock
                             </th>
                             <th class="sorting_disabled" role="columnheader" tabindex="0"
@@ -52,12 +52,12 @@
                                 colspan="1" aria-label="Delete: activate to sort column ascending">
                                 Action
                             </th>
-                            <th class="sorting_disabled" role="columnheader" tabindex="0"
+                            <!--th class="sorting_disabled" role="columnheader" tabindex="0"
                                 aria-controls="editable-sample"
                                 rowspan="1"
                                 colspan="1" aria-label="Delete: activate to sort column ascending">
                                 Impression
-                            </th>
+                            </th-->
                         </tr>
                         </thead>
 
@@ -76,7 +76,7 @@
 
                             <td class=center><?php echo $results->color?>
                             <td><?php echo $results->purchase_rate?>
-                            <td><?php if($results->stock_qty > 0){ echo '<span class="label label-success">'.$results->stock_qty.'</span>';}
+                            <td><?php if($results->stock_qty >0){ echo '<span class="label label-success">'.$results->stock_qty.'</span>';}
                                 else{
                                     echo '<span class="label label-danger">'.$results->stock_qty.'</span>';
                                 }?>
@@ -89,12 +89,12 @@
                                     Modifier
                                 </a>
                             </td>
-                            <td>
+                            <!--td>
 
-                                <a href='#myModal1' onclick='get_items(<?php echo $results->item_id?>);' data-toggle='modal' class='btn btn-default'><i class='fa fa-pencil-square-o'></i>
-                                Impression
+                            <a href='#myModal1' onclick='get_items(<?php echo $results->item_id?>);' data-toggle='modal' class='btn btn-default'><i class='fa fa-pencil-square-o'></i>
+                                    Print
                                 </a>
-                            </td>
+                            </td-->
                         <?php } ?>
                         </tbody>
                     </table>
@@ -190,7 +190,7 @@
                         <div class='col-lg-9'>
                             <input type='text' name="fax_no" class='form-control'
                                    value="<?php echo $rows->item_id; ?>" id='c_address'
-                                   placeholder=''>
+                                   placeholder='' readonly="readonly">
                         </div>
                     </div>
 
@@ -200,7 +200,7 @@
 
                         <div class='col-lg-9'>
                             <input type='text' name="purchase_rate" class='form-control'
-                                   value="<?php echo $rows->purchase_rate; ?>" id='c_address'
+                                   value="<?php echo $rows->purchase_rate; ?>" id='purchase_rate'
                                    placeholder=''>
                         </div>
                     </div>
@@ -269,7 +269,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Ajouter une entreprise</h4>
+                <h4 class="modal-title">Créer un produit</h4>
             </div>
             <?= form_open_multipart(base_url() . 'index.php/item/insert_item', array('method' => 'POST', 'class' => 'form-horizontal')) ?>
 
@@ -280,7 +280,8 @@
                     <div class='col-lg-9'>
                         <input type='hidden' name="cid" class='form-control' id='c_' value=''>
                         <input type='text' name="item_name" class='form-control' id='c_name'
-                               value=''>
+                               value=''
+                               placeholder='text'required>
                     </div>
                 </div>
 
@@ -289,7 +290,7 @@
 
                     <div class='col-lg-9'>
                         <input type='text' name="article_no" class='form-control'
-                               value="" id=''>
+                               value="" id='' placeholder='text'required>
                     </div>
                 </div>
 
@@ -298,7 +299,7 @@
 
                     <div class='col-lg-9'>
                         <input type='text' name="size" class='form-control'
-                               value="" id='c_cell'>
+                               value="" id='c_cell' placeholder='text'required>
                     </div>
                 </div>
                 <div class='form-group'>
@@ -307,17 +308,27 @@
                     <div class='col-lg-9'>
                         <input type='text' name="color" class='form-control'
                                value="" id=''
-                               placeholder=''>
+                               placeholder='text'required>
                     </div>
                 </div>
+                <?php $query = $this->db->get('item');
 
+                    foreach ($query->result() as $row)
+                    {
+                            $qrcode = $row->item_id;
+                    }
+
+                    if (empty($qrcode)) {
+                        $qrcode = 0;
+                    } 
+                ?>
                 <div class='form-group'>
                     <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>QR CODE</label>
 
                     <div class='col-lg-9'>
                         <input type='text' name="qrCode" class='form-control'
-                               value="" id=''
-                               placeholder=''>
+                               value="<?php echo $qrcode+1; ?>" id=''
+                               placeholder='numérique' required readonly="readonly">
                     </div>
                 </div>
 
@@ -327,19 +338,19 @@
                     <div class='col-lg-9'>
                         <input type='text' name="purchase_rate" class='form-control'
                                value="" id=''
-                               placeholder=''>
+                               placeholder='numérique' required>
                     </div>
                 </div>
 
-                <div class='form-group'>
+                <!--div class='form-group'>
                     <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>Qté En Stock</label>
 
                     <div class='col-lg-9'>
                         <input type='text' name="stock_rate" class='form-control'
                                value="" id=''
-                               placeholder=''>
+                               placeholder='0' required>
                     </div>
-                </div>
+                </div-->
 
                 <div class="form-group">
                     <label for="cname" class="control-label col-lg-3">NOM DE CATÉGORIE </label>
@@ -354,16 +365,16 @@
                         </select>
                     </div>
                 </div>
-                <div class='form-group'>
-                    <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>QUANTITÉ</label>
+                <!div class='form-group'>
+                    <!--label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>QUANTITÉ</label>
 
-                    <div class='col-lg-9'>
+                    <!div class='col-lg-9'>
                         <input type='text' name="stock_qty" class='form-control'
                                value="" id=''
-                               placeholder=''>
+                               placeholder='0' required>
                     </div>
                 </div>
-            </div>
+            </div-->
             <div class="modal-footer">
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Fermer</button>
 <?php echo $My_Controller->savePermission;?>

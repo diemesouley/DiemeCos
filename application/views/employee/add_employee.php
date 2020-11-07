@@ -66,7 +66,7 @@
                     <div class="form-group" style="padding-left: 42%">
                         <div class="col-md-6">
                             <?php echo $My_Controller->savePermission; ?>
-                            <a href="<?= base_url(); ?>index.php/employees/add_employee" class="btn btn-danger">Annuler</a>
+                            <a href="<?= base_url(); ?>index.php/employees/employee_list" class="btn btn-danger">Annuler</a>
                         </div>
 
                     </div>

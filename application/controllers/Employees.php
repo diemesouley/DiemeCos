@@ -57,12 +57,12 @@ class Employees extends MY_Controller
             if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                 && $imageFileType != "gif" ) {
                 $this->session->set_flashdata('msg', '<div class="alert alert-warning alert-dismissable">
-   <button type="button" class="close" data-dismiss="alert"
-      aria-hidden="true">
-      &times;
-   </button>
-   <span>Sorry, only JPG, JPEG, PNG & GIF files are allowed.</span>
-</div>');
+            <button type="button" class="close" data-dismiss="alert"
+                  aria-hidden="true">
+                  &times;
+                    </button>
+             <span>Sorry, only JPG, JPEG, PNG & GIF files are allowed.</span>
+            </div>');
                 //echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
                 $uploadOk = 0;
                 redirect(base_url().'index.php/employees/add_employee');
@@ -204,7 +204,7 @@ class Employees extends MY_Controller
         $this->header();
         $this->load->view('employee/edit_employee',$data);
         $this->footer();
-
+        
     }
 
 }

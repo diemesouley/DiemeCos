@@ -31,12 +31,10 @@
                         Numéro Tél:
                         </th>
                         <th>
-                        Numéro Fax:
-                        </th>
-                        <th>EMAIL
+                        EMAIL
                         </th>
                         <th>
-                            Action
+                        Action
                         </th>
                     </tr>
                     </thead>
@@ -57,7 +55,7 @@
 
                             <td><?php echo $results->phone_no ?>
 
-                            <td class=center><?php echo $results->fax_no ?>
+                            
                             <td><?php echo $results->email ?>
                             <td>
                                 <a href='#myModal<?= $results->vendor_id; ?>' data-toggle='modal'
@@ -110,16 +108,6 @@
                             <div class='col-lg-9'>
                                 <input class="form-control" type="text" name="phone_no" value="<?= $rows->phone_no; ?>">
 
-                            </div>
-                        </div>
-                        <div class='form-group'>
-                            <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>Numéro
-                                Fax</label>
-
-                            <div class='col-lg-9'>
-                                <input type='text' name="fax_no" class='form-control'
-                                       value="<?= $rows->fax_no?>" id='c_address'
-                                       placeholder=''>
                             </div>
                         </div>
                         <div class='form-group'>
@@ -203,16 +191,6 @@
                                     <div class='col-lg-9'>
                                         <input type='text' name="phone_no" class='form-control'
                                                value="" id='c_cell'>
-                                    </div>
-                                </div>
-                                <div class='form-group'>
-                                    <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>Numéro
-                                        Fax</label>
-
-                                    <div class='col-lg-9'>
-                                        <input type='text' name="fax_no" class='form-control'
-                                               value="" id='c_address'
-                                               placeholder=''>
                                     </div>
                                 </div>
                                 <div class='form-group'>

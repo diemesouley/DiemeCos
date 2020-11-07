@@ -34,7 +34,7 @@
   </div>
 
   <div class="register-box-body">
-    <p class="login-box-msg">Register a new membership</p>
+    <p class="login-box-msg">Enregistrer un nouveau utilisateur</p>
 
       <?php $attributes = array('class' => 'form-horizontal group-border hover-stripped','method'=>'post');
       echo form_open('users/registration', $attributes);?>
@@ -42,7 +42,7 @@
         <input type="text" class="form-control" name="full_name" placeholder="Nom Complet">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
+      <!--div class="form-group has-feedback">
         <input type="text" name="user_name" class="form-control" placeholder="Nom D'utilisateur">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
@@ -54,7 +54,7 @@
         <input type="email" name="email" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
-      <div class="row">
+      <div class="row"-->
 
         <!-- /.col -->
         <div class="col-xs-4 text-right">

@@ -186,7 +186,7 @@
                     do_grand_total();
                 }
                 else{
-                    toastr.warning('quantity is less');
+                    toastr.warning('Quanrité insuffisante!!!');
                     row.find(".stock").val('');
                     row.find(".items-carton").val('');
                     row.find(".carton").attr('readonly','readonly');
@@ -195,7 +195,7 @@
 
                 }
             }, function(){
-                alert("Sorry cannot get the product details!");
+                alert("Desolé on a pas les infos concernant!");
             });
         });
 
@@ -256,7 +256,7 @@
             e.preventDefault();
             var amount = $("#grand_total").val();
             $("#paid_amount").val(amount);
-            $("#due_amount").val(0);
+            $("#due_amount").val(grand_total - paid_amount);
 
         });
 

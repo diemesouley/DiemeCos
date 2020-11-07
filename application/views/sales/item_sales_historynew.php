@@ -41,7 +41,7 @@
                     <div class="col-xs-12">
                         <h2 class="page-header">
                             <i class="fa fa-globe"></i> Souleymane, SYM.
-                            <small class="pull-right">Date: 15/01/2020</small>
+                            
                         </h2>
                     </div>
                     <!-- /.col -->

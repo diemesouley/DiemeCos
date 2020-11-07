@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-lg-6">
                             <label class="control-label">Date Fin</label>
-                            <input type="text" class="form-control datepicker" name="end_date">
+                            <input type="text" class="form-control datepicker"  name="end_date">
                         </div>
                     </div>
                     <br>
@@ -48,7 +48,7 @@
 
                     <br>
                     <br>
-                <div id="printableArea">
+                    <div id="printableArea">
                     <link href="<?= base_url(); ?>assets/sales_report.css" rel="stylesheet" type="text/css">
 
 
@@ -57,7 +57,7 @@
 
                             <header class="clearfix">
                                 <div id="logo">
-                                    <img src="<?=base_url()?>uploads/images/<?=$company->logo;?>">
+                                    
                                 </div>
                                 <div id="company">
                                     <h2 class="name"><?=$company->name;?></h2>
@@ -74,15 +74,24 @@
                                     <strong><?php echo $end ?></strong></h4>
                                 <br/>
                                 <br/>
-
+                               
                                 <?php
                                 $key = 0;
                                 $total_cost = 0;
                                 $total_sell = 0;
                                 $total_profit = 0;
+                                $prixAchUnitTotal = 0;
+								$To = 0;
+                                $total_dette=0;
+                                $sommeCaisse=0; // a modifier
+                                $payer=0;
+
+								$query =$this->Main_model->somme_dette();
+								foreach($query as $mm){$total_dette=$mm['balance'];}
+								
                                 ?>
                                 <?php if (!empty($invoice_details)): foreach ($invoice_details as $invoice_no => $order_details) : ?>
-                                    <?php $total_buying_price = 0; $sales_qty =0; ?>
+                                    <?php $total_buying_price = 0; $sales_qty =0; $prixAchUnitTotal = 0;?>
                                     <table>
                                         <thead>
                                         <tr>
@@ -104,7 +113,10 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <?php $k = 1 ?>
+                                        <?php $k = 1; 
+                                            $grandTotal=0;
+                                            $total_Achat=0;
+                                        ?>
                                         <?php if (!empty($order_details)): foreach ($order_details as $v_order) : ?>
                                             <tr>
                                                 <td class="no"><?php echo $k ?></td>
@@ -112,14 +124,20 @@
                                                 </td>
                                                 <td class="unit"><?php echo number_format($v_order->purchase_rate, 2) ?></td>
                                                 <?php
+                                                
                                                $sales_qty = $v_order->sales_qty;
                                                $total_buying_price += $v_order->purchase_rate;
                                                $t = $sales_qty * $total_buying_price;
+                                               //$prof += (($v_order->sales_qty * $v_order->stock_rate) - ($v_order->purchase_rate * $v_order->stock_rate));
+                                               $prixAchUnitTotal += $v_order->purchase_rate * $v_order->sales_qty;
                                                 ?>
-                                                <td class="unit"><?php echo number_format($v_order->stock_rate, 2) ?></td>
+                                                <td class="unit"><?php echo number_format($v_order->sales_rate, 2) ?></td>
                                                 <td class="qty"><?php echo $v_order->sales_qty ?></td>
                                                 <td class="total"><?php echo number_format($v_order->sales_amount); ?></td>
                                             </tr>
+                                            <?php $grandTotal += $v_order->sales_amount;
+                                                  $total_Achat += $v_order->purchase_rate * $sales_qty;
+                                            ?>
                                             <?php $k++ ?>
                                             <?php $total_cost += $v_order->purchase_rate * $sales_qty; ?>
 
@@ -133,6 +151,7 @@
                                         <tfoot>
 
                                         <?php if ($order[$key]->sales_discount != 0): ?>
+                                            <?php $To = 0; ?>
                                             <tr>
                                                 <td colspan="3"></td>
                                                 <td colspan="2">Discount Amount</td>
@@ -143,17 +162,27 @@
                                         <tr>
                                             <td colspan="3"></td>
                                             <td colspan="2">Grand Total</td>
-                                            <td><?php echo  number_format($order[$key]->grand_total, 2) ?></td>
+                                            
+                                            <td><?php echo  number_format($grandTotal, 2) ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"></td>
+                                            <td colspan="2">Dette Vente</td>
+                                            <td><?php echo  number_format($order[$key]->balance, 2) ?></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3"></td>
                                             <td colspan="2">Profit</td>
-                                            <td><?php echo number_format($order[$key]->grand_total - $t, 2) ?></td>
+                                            
+                                            <?php $To = ($grandTotal - $total_Achat) ?>
+                                            
+                                            <td><?php echo number_format($To, 2) ?></td>
                                         </tr>
                                         </tfoot>
                                         <?php
                                         $total_sell += $order[$key]->grand_total;
-                                        $total_profit += $order[$key]->grand_total - $t;
+                                        $total_profit += $To;
+                                        $payer += $order[$key]->paid;//somme en caisse
                                         ?>
 
                                     </table>
@@ -161,24 +190,33 @@
                                 <?php endforeach; endif; ?>
 
                                 <?php if (!empty($invoice_details)) : ?>
+                                    <?php  $sommeCaisse = $total_sell - $total_dette;?>
                                     <table>
                                         <thead>
                                         <tr style="background-color: #ccc">
                                             <th class="no text-left">Total Achat</th>
                                             <th class="no text-left">Total Vente</th>
                                             <th class="no text-left">Total Profit</th>
+                                            <th class="no text-left">Somme en caisse</th>
+											<th class="no text-left">Total Dette</th>
                                         </tr>
                                         </thead>
                                         <tbody style="background-color: #c5c5c5">
                                         <td class="total"><?php echo number_format($total_cost, 2) ?></td>
                                         <td class="total"><?php echo number_format($total_sell, 2) ?></td>
                                         <td class="total"><?php echo number_format($total_profit, 2) ?></td>
+                                        <td class="total"><?php echo number_format($payer, 2) ?></td>
+									    <td class="total"><?php echo number_format($total_dette, 2) ?></td>
+                                        
                                         </tbody>
                                     </table>
-
+                                    
                                 <?php else: ?>
-                                    <strong>There is no record for display</strong>
+                                    <strong>Liste vide</strong>
                                 <?php endif ?>
+                                
+                                
+                                
 
 
                             </main>
@@ -192,6 +230,7 @@
                     </div>
 
                 </div>
+                
 <?php }?>
 
             </div>
@@ -206,7 +245,7 @@
         var table = $('#dataTables-example').DataTable();
         table.destroy();
 
-        //$('#dataTables-example').attr('id','none');
+
         var printContents = document.getElementById(printableArea).innerHTML;
         var originalContents = document.body.innerHTML;
         document.body.innerHTML = printContents;

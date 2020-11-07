@@ -5,7 +5,7 @@
     <div class="pull-right hidden-xs">
         <b>Version</b> 1.4.0
     </div>
-    <strong>Copyright &copy; 2019 <a href="https://github.com/diemesouley">DIEME & DIA GESCOS</a>.</strong> Tous les droits
+    <strong>Copyright &copy; 2020 <a href="https://github.com/diemesouley">DIEME GESCOS</a>.</strong> Tous les droits
     réservés.
 </footer>
 </div>
@@ -54,6 +54,8 @@
 <script src="<?= base_url() ?>assets/dist/js/demo.js"></script>
 <!-- CK Editor -->
 <script src="<?=base_url()?>assets/bower_components/ckeditor/ckeditor.js"></script>
+<!-- Select2 -->
+<script src="<?=base_url()?>assets/bower_components/select2/bootstrap-select.min.js"></script>
 <script>
     $(function () {
         $('#example1').DataTable()
@@ -84,7 +86,7 @@
                 $.each(data, function (key, value) {
                     if (value.EMP_NAME.search(expression) != -1) {
                         $('#result').append('<li class="list-group-item link-class">' +
-                            '<img src="' + img + '' + value.EMP_PIC + '" height="40" width="40" class="img-thumbnail" /><a href="' + img + 'employees/employee_detail/' + value.EMP_ID + '">' + value.EMP_NAME + '</a> | <span class="text-muted">' + value.EMP_CELL + '</span></li>');
+                            '<img src="' + img + '' + value.EMP_PIC + '" height="40" width="40" class="img-thumbnail" /><a href="' + img + 'index.php/employees/employee_detail/' + value.EMP_ID + '">' + value.EMP_NAME + '</a> | <span class="text-muted">' + value.EMP_CELL + '</span></li>');
                     }
                 });
             });

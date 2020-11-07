@@ -25,23 +25,23 @@
                             ID
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1"
-                            colspan="1" aria-label="Full Name: activate to sort column ascending">
-                            NOM DE LA COMPAGNIE
+                            colspan="1" aria-label="Full Name: activate to sort column ascending" required>
+                            NOM DE L'ENTREPRISE
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1"
-                            colspan="1" aria-label="Points: activate to sort column ascending">
+                            colspan="1" aria-label="Points: activate to sort column ascending" required>
                             N° Tel
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1"
-                            colspan="1" aria-label="Notes: activate to sort column ascending">
-                            n° Fax
+                            colspan="1" aria-label="Notes: activate to sort column ascending" required>
+                            N° Fax
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1"
                             colspan="1" aria-label="Edit: activate to sort column ascending">EMAIL
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1"
-                            colspan="1" aria-label="Delete: activate to sort column ascending">
-                            Supprimer
+                            colspan="1" aria-label="Delete: activate to sort column ascending" required>
+                            Modifier
                         </th>
                     </tr>
                     </thead>
@@ -59,10 +59,8 @@
                         <td><?= $results->company_name ?>
 
                         <td><?= $results->phone_no ?>
-
                         <td class=center><?= $results->fax_no ?>
-                        <td><?= $results->email ?>
-                        <td>
+                        <td><?= $results->email ?><td>
                             <a href='#myModal<?= $results->company_id ?>'
                                data-toggle='modal' <?php echo $My_Controller->editPermission; ?>
                                class='btn btn-warning'><i
@@ -90,7 +88,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Mettre à jour la société</h4>
+                    <h4 class="modal-title">Mettre à jour l'entreprise</h4>
                 </div>
                 <?php $attributes = array('class' => 'form-horizontal group-border hover-stripped', 'id' => 'myform', 'method' => 'post');
                 echo form_open_multipart('company/update_company', $attributes); ?>
@@ -112,17 +110,17 @@
 
                         <div class='col-lg-9'>
                             <input type='text' name="phone_no" class='form-control'
-                                   value="<?= $rows->phone_no ?>" id='c_cell'>
+                                   value="<?= $rows->phone_no ?>" id='c_cell' required>
                         </div>
                     </div>
                     <div class='form-group'>
-                        <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>N°
-                            Fax</label>
+                        <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>N° Fax
+                            </label>
 
                         <div class='col-lg-9'>
                             <input type='text' name="fax_no" class='form-control'
                                    value="<?= $rows->fax_no ?>" id='c_address'
-                                   placeholder=''>
+                                   placeholder='00000' required>
                         </div>
                     </div>
                     <div class='form-group'>
@@ -131,7 +129,7 @@
                         <div class='col-lg-9'>
                             <input type='text' name="email" class='form-control'
                                    value="<?= $rows->email ?>" id='c_address'
-                                   placeholder=''>
+                                   placeholder='' required>
                         </div>
 
                     </div>
@@ -180,17 +178,17 @@
 
                     <div class='col-lg-9'>
                         <input type='text' name="phone_no" class='form-control'
-                               value="" id='c_cell'>
+                               value="" id='c_cell' required>
                     </div>
                 </div>
                 <div class='form-group'>
-                    <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>N° 
+                    <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>N°
                         Fax</label>
 
                     <div class='col-lg-9'>
                         <input type='text' name="fax_no" class='form-control'
                                value="" id='c_address'
-                               placeholder=''>
+                               placeholder='0000' required>
                     </div>
                 </div>
                 <div class='form-group'>
@@ -199,17 +197,27 @@
                     <div class='col-lg-9'>
                         <input type='text' name="email" class='form-control'
                                value="" id='c_address'
-                               placeholder=''>
+                               placeholder='' required>
                     </div>
 
                 </div>
 
-            </div>
-            <div class="modal-footer">
+                <div class='form-group'>
+                        <label for='inputPassword1'
+                               class='col-lg-3 col-sm-3 control-label'>Adresse</label>
+                        <div class='col-lg-9'>
+                                        <textarea name="address" class='form-control' id='address'
+                                                  placeholder='' required></textarea>
+                        </div>
+
+                </div>
+                <div class='form-group'>
+                        <div class='col-lg-offset-2 col-lg-10'>
+                            <?php echo $My_Controller->savePermission; ?>
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Fermer</button>
-                <?php echo $My_Controller->savePermission; ?>
+                </div>
             </div>
-            </form>
+            <?php echo form_close(); ?>
         </div>
         <!-- /.modal-content -->
     </div>

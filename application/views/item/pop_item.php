@@ -21,7 +21,7 @@
                     <?php /*?><img src="<?php echo base_url();?>img/printer.png" title="Click To Print" width="50px" height="50px" align="RIGHT" ><?php */?>Imprimer</a>
             </div>
 
-            <div id="content-print"  style="">
+            <div id="content-print"  style:"">
 
                 <img src='<?=base_url();?>/img/barcode.php?barcode=<?php echo $items->item_id?>&text=<?php echo $items->item_name.'-'.$items->color.'-'.$items->size.'-'.$items->article_no.'-'.$items->purchase_rate?>&width=300'  />
 

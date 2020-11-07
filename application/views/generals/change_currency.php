@@ -1,4 +1,4 @@
-<div class="row">
+<!--div class="row">
     <div style="left: 50%; transform: translateX(-50%);" class="col-md-8">
         <div class="box">
             <div class="box-header">
@@ -6,7 +6,7 @@
             </div>
             <div class="box-body">
                 <div id="msg"></div>
-                <?php echo form_open('#', array('id' => 'update_currency', 'method' => 'post', 'class' => 'form-horizontal form')); ?>
+                <!?php echo form_open('#', array('id' => 'update_currency', 'method' => 'post', 'class' => 'form-horizontal form')); ?>
                 <div class="form-group">
                     <label class="col-sm-3 control-label" style="width: 20%;" for="name">Default
                         Currency</label>
@@ -16,7 +16,7 @@
                                                 <span class="icon icon-th-large"></span>
                                           </span>
                             <input class="form-control" type="text" name="name" id="name"
-                                   value="<?= $get_current_currency['name']; ?>" readonly>
+                                   value="<!?= $get_current_currency['name']; ?>" readonly>
                         </div>
                     </div>
                 </div>
@@ -26,10 +26,10 @@
                     <div class="col-sm-9">
                         <select id="demo-select2-1" class="form-control" name="currency_id">
                             <option value="0">Select Currency</option>
-                            <?php foreach ($currencies as $currency) { ?>
-                                <option value="<?= $currency->currency_settings_id ?>"><?= $currency->name ?>
-                                    &nbsp;<?= $currency->symbol ?></option>
-                            <?php } ?>
+                            <!?php foreach ($currencies as $currency) { ?>
+                                <option value="<!?= $currency->currency_settings_id ?>"><!?= $currency->name ?>
+                                    &nbsp;<!?= $currency->symbol ?></option>
+                            <!?php } ?>
                         </select>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                             type="submit">Modifier
                     </button>
                 </div>
-                <?= form_close(); ?>
+                <!?= form_close(); ?>
             </div>
         </div>
     </div>
@@ -64,16 +64,16 @@
                     </thead>
                     <tbody>
                     <form method="POST">
-                        <?php $i = 0;
+                        <!?php $i = 0;
                         foreach ($currencies as $currencies) { ?>
                             <tr>
-                                <td><?= $i + 1 ?></td>
-                                <td><?= $currencies->name ?></td>
-                                <td><?= $currencies->symbol ?></td>
-                                <td><?= $currencies->exchange_rate ?></td>
-                                <td><?= $currencies->exchange_rate_def ?></td>
+                                <td><!?= $i + 1 ?></td>
+                                <td><!?= $currencies->name ?></td>
+                                <td><!?= $currencies->symbol ?></td>
+                                <td><!?= $currencies->exchange_rate ?></td>
+                                <td><!?= $currencies->exchange_rate_def ?></td>
                             </tr>
-                            <?php $i++;
+                            <!?php $i++;
                         } ?>
                     </form>
                     </tbody>
@@ -89,7 +89,7 @@
             $("#msg").html('<div class="loading"></div>');
             var fd = new FormData(this);
             $.ajax({
-                url: '<?php echo site_url("Generals/save_change_currency") ?>',
+                url: '<!?php echo site_url("Generals/save_change_currency") ?>',
                 data: fd,
                 type: "POST",
                 contentType: false,
@@ -111,4 +111,4 @@
             });
         }));
     });
-</script>
+</script-->

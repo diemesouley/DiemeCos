@@ -39,7 +39,7 @@
                             Numéro Tél
                         </th>
                         <th>
-                            Numéro Fax
+                           Avance Dette
                         </th>
                         <th>EMAIL
                         </th>
@@ -105,29 +105,29 @@
                         </div>
 
                         <div class='form-group'>
-                            <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>Numéro Tel: </label>
+                            <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>Telephone </label>
 
                             <div class='col-lg-9'>
-                                <input type='text' name="ccell" class='form-control'
-                                       value="<?php echo $rows->phone_no; ?>" id='c_cell'>
+                                <input type='text' name="ccell"/** ccell*/ class='form-control'
+                                       value="<?php echo $rows->phone_no; ?>" id='ccell'>
                             </div>
                         </div>
                         <div class='form-group'>
-                            <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>Numéro Fax: </label>
+                            <label for='inputPassword1' class='col-lg-3 col-sm-3 control-label'>Avance Dette </label>
 
                             <div class='col-lg-9'>
-                                <input type='text' name="caddress" class='form-control'
-                                       value="<?php echo $rows->fax_no; ?>" id='c_address'
-                                       placeholder=''>
+                                <input type='text' name="coldno"/**coldno */ class='form-control'
+                                       value="<?php echo $rows->fax_no; ?>" id='coldno'
+                                       placeholder='00000' Required>
                             </div>
                         </div>
                         <div class='form-group'>
                             <label for='inputPassword1'
-                                   class='col-lg-3 col-sm-3 control-label'>EMAIL</label>
+                                   class='col-lg-3 col-sm-3 control-label'>Email</label>
 
                             <div class='col-lg-9'>
-                                <input type='text' name="coldno" class='form-control'
-                                       value="<?php echo $rows->email; ?>" id='c_oldNo'>
+                                <input type='text' name="caddress"/**caddress */ class='form-control'
+                                       value="<?php echo $rows->email; ?>" id='caddress' placeholder='cient@gmail.com' required>
                             </div>
                         </div>
                         <div class='form-group'>
@@ -159,11 +159,11 @@
                     <?php $attributes = array('class' => 'form-horizontal group-border hover-stripped', 'id' => 'commentForm', 'method' => 'post');
                     echo form_open('customer/insert_customer', $attributes); ?>
                     <div class='form-group'>
-                        <label for='inputEmail1' class='col-lg-3 col-sm-3 control-label'>Nom</label>
+                        <label for='inputEmail1' class='col-lg-3 col-sm-3 control-label'>Nom Complet</label>
                         <div class='col-lg-9'>
                             <input type='hidden' name="cid" class='form-control' id='c_' value=''>
                             <input type='text' name="customer_name" class='form-control' id='c_name'
-                                   value=''>
+                                   value='' required>
                         </div>
                     </div>
 
@@ -172,7 +172,7 @@
 
                         <div class='col-lg-9'>
                             <input type='text' name="phone_no" class='form-control'
-                                   value="" id='c_cell'>
+                                   value="" id='c_cell' required>
                         </div>
                     </div>
                     <div class='form-group'>
@@ -182,7 +182,7 @@
                         <div class='col-lg-9'>
                             <input type='text' name="fax_no" class='form-control'
                                    value="" id='c_address'
-                                   placeholder=''>
+                                   placeholder='0000' required>
                         </div>
                     </div>
                     <div class='form-group'>
@@ -191,26 +191,17 @@
                         <div class='col-lg-9'>
                             <input type='text' name="email" class='form-control'
                                    value="" id='c_address'
-                                   placeholder=''>
+                                   placeholder='client@gmail.com' required>
                         </div>
 
                     </div>
-                    <div class='form-group'>
-                        <label for='inputPassword1'
-                               class='col-lg-3 col-sm-3 control-label'>TRN</label>
-                        <div class='col-lg-9'>
-                            <input type='text' name="trn" class='form-control'
-                                   value="" id='trn'
-                                   placeholder=''>
-                        </div>
-
-                    </div>
+                    
                     <div class='form-group'>
                         <label for='inputPassword1'
                                class='col-lg-3 col-sm-3 control-label'>Adresse</label>
                         <div class='col-lg-9'>
                                         <textarea name="address" class='form-control' id='address'
-                                                  placeholder=''></textarea>
+                                                  placeholder='' required></textarea>
                         </div>
 
                     </div>
@@ -224,5 +215,5 @@
                 </div>
 
             </div>
-        </div>
-    </div>
+            </div>
+             </div>

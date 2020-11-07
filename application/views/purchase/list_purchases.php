@@ -50,19 +50,17 @@
 </div>
 <div class="row">
     <div class="col-lg-7">
-
         <div class="box box-warning">
             <div class="box-heading">
-                <h5>Produits en stock disponibles</h5>
-
+                <h5>Liste des produits en stock</h5>
             </div>
             <div class="box-body" id="rows-list">
                 <div class="input-group">
 
                     <span class="input-group-addon"> <span class="fa fa-search"> </span> </span>
 
-                   <select class="form-control product input-xlarge" name="item_id"
-                            onchange="return get_purchased_data(this.value);">
+                   <select class="selectpicker form-control product input-xlarge" name="item_id"
+                            onchange="return get_purchased_data(this.value);" data-live-search="true">
                         <option value="">Ajouter un produit</option>
                         <?php foreach ($products as $rows) :
                             ?>
@@ -70,7 +68,6 @@
                                     / <?= $rows->size ?></option>
                         <?php endforeach; ?>
                     </select>
-
                 </div>
                          <hr>
 
@@ -119,7 +116,7 @@
         <div data-sortable-id="ui-widget-10" class="box box-success">
             <div class="box-heading">
                 <h4 class="box-title">
-                Paiement </h4>
+                Effectuer le payement </h4>
             </div>
             <div class="box-body">
                 <div class="table-responsive">
@@ -177,7 +174,7 @@
                         </tbody>
                     </table>
                     <div class="form-group col-md-10">
-                        <button class="btn btn-success" type="submit">Créer un nouvel achat</button>
+                        <button class="btn btn-success" type="submit">Achater Maintenant</button>
                     </div>
                 </div>
             </div>

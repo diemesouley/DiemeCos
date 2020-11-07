@@ -18,7 +18,7 @@
             <div class="col-md-3">
                 <div class="sandbox">
                     <label for="select-beast">Nom du Client:</label>
-                    <select class="form-control" name="customer_id" required="required">
+                    <select class="selectpicker form-control" name="customer_id" required="required" searchable="Search here.." data-live-search="true">
                         <option value="">CHOISIR DES CLIENTS</option>
                         <?php foreach ($customers as $customer) : ?>
                             <option
@@ -47,10 +47,17 @@
                 <label>Date de vente</label>
                 <input type="text" value="" size="16" required name="sales_date"
                        class="form-control form-control-inline input-medium datepicker">
-
-
             </div>
 
+            <!--div>
+        
+            <label>Pour retour vente</label><br> 
+            <td>
+            <a href='sale_return' data-toggle='modal' class='btn btn-danger'>
+            <i class='fa fa-pencil-square-o'></i>
+                                    Cliquez-ici
+                                </a> </td>
+                                </div-->
 
         </div>
 
@@ -75,7 +82,7 @@
                     <div style:"" id="">
 
                         <table id="" class="table table-bordered table-striped table-nowrap dataTable" cellspacing="0"
-                               width="100%">
+                               width="50%">
                             <thead>
                             <tr>
                                 <th>Sélectionner un article</th>
@@ -91,8 +98,8 @@
                             <tr>
                                 <td class="product-list">
                                  
-<select class="form-control product input-xlarge" name="product_id[]"
-                            onchange="return get_purchased_data(this.value);">
+                        <select class="form-control product input-xlarge" name="product_id[]"
+                            onchange="return get_purchased_data(this.value);" data-live-search="true">
                         <option value="">Ajouter un produit</option>
                         <?php foreach ($products as $rows) :
                             ?>
@@ -104,7 +111,7 @@
                                 <td><input type="number" name="av_qtys[]" class="form-control stock" readonly>
                                     <input type="hidden" name="category_id[]" class="form-control category" readonly>
                                 </td>
-                                <td><input type="number" name="cartons[]" class="form-control carton"></td>
+                                <td><input type="" name="cartons[]" class="form-control carton"></td>
                                 <td>
                                     <input type="number" name="rates[]" class="form-control rate">
                                 </td>
@@ -179,8 +186,8 @@
 
 </div>
 </form>
-<script>
 
+<script>
     function get_product(category_id) {
 //        alert(category_id);
         // get the product list
@@ -362,7 +369,7 @@
                 $(this).closest('tr').remove();
                 do_grand_total();
             } else {
-                alert("This row cannot be deleted");
+                alert("Cette ligne ne peut pas etre supprimer!");
             }
         });
 
@@ -388,7 +395,7 @@
                     do_grand_total();
                 }
                 else {
-                    toastr.warning('quantity is less');
+                    toastr.warning('Cette ligne ne peut pas etre supprimer!!!');
                     row.find(".stock").val('');
                     row.find(".items-carton").val('');
                     row.find(".carton").attr('readonly', 'readonly');
@@ -397,7 +404,7 @@
 
                 }
             }, function () {
-                alert("Sorry cannot get the product details!");
+                alert("Le detail de ce produit ne peut pas etre recuperer!");
             });
         });
 
@@ -464,6 +471,7 @@
             $("#due_amount").val(0);
 
         });
+            
 
     });
     // Add input field for new Invoice
@@ -471,6 +479,7 @@
     var limits = 500;
     function addPurchaseInputField(e) {
         var t = $("tbody#rows-list tr:first-child").html();
-        count == limits ? alert("You have reached the limit of adding " + count + " inputs") : $("tbody#rows-list").append("<tr>" + t + "</tr>")
+        count == limits ? alert("Vous avez atteint la limite de produits a selectioné" + count + " inputs") : $("tbody#rows-list").append("<tr>" + t + "</tr>")
+    
     }
 </script>

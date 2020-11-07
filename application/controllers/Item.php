@@ -86,7 +86,7 @@ class Item extends MY_Controller
         $qty = $this->input->post('quantity');
         $data['barcodes'] = $this->db->query("select * from item where item_id = $item")->result();
         $data['quantity'] = $qty;
-        $data['products'] = $this->db->query("SELECT * FROM stock AS s, item AS i WHERE  s.stock_qty > 0 AND i.`item_id` = s.`item_id`")->result();
+        $data['products'] = $this->db->query("SELECT * FROM stock AS s, item AS i WHERE  s.stock_qty >= 0 AND i.`item_id` = s.`item_id`")->result();
         $data['items'] = $this->Main_model->item_cat();
         $this->load->view('item/print_barcodesItems', $data);
 
@@ -95,7 +95,7 @@ class Item extends MY_Controller
     // Generate Barcodes
     public function generate_barcodes()
     {
-        $data['products'] = $this->db->query("SELECT * FROM stock AS s, item AS i WHERE  s.stock_qty > 0 AND i.`item_id` = s.`item_id`")->result();
+        $data['products'] = $this->db->query("SELECT * FROM stock AS s, item AS i WHERE  s.stock_qty >= 0 AND i.`item_id` = s.`item_id`")->result();
         $data['items'] = $this->Main_model->item_cat();
         $this->load->view('item/print_barcodesItems', $data);
     }
@@ -159,9 +159,9 @@ class Item extends MY_Controller
             $data2 = array(
                 'item_id' => $id,
                 'category_id' => $this->input->post('category_id'),
-                'stock_qty' => $this->input->post('stock_qty'),
+                'stock_qty' => 0,
                 'purchase_rate' => $this->input->post('purchase_rate'),
-                'stock_rate' => $this->input->post('stock_rate')
+                'stock_rate' => 0
 
             );
             $response = $this->Main_model->add_record('item', $data);
@@ -174,7 +174,7 @@ class Item extends MY_Controller
                 $params['savename'] = FCPATH . 'uploads/images/qrcodes/' . $id . '.png';
                 $params = $this->ciqrcode->generate($params);
 
-                $this->session->set_flashdata('success', 'Product added Successfully');
+                $this->session->set_flashdata('success', 'Produit ajouté avec succé');
                 redirect(base_url() . 'index.php/Item/list_items');
 
             }
@@ -198,7 +198,7 @@ class Item extends MY_Controller
         $this->Main_model->update_record('item', $cust_info, $where);
         $cat_data = array('category_id' => $category_id);
         $this->Main_model->update_record('stock', $cat_data, $where);
-        $this->session->set_flashdata('info', 'Product Updated Successfully..!');
+        $this->session->set_flashdata('info', 'Produit mis à jour avec succé..!');
 
         redirect(base_url() . 'index.php/Item/list_items');
     }

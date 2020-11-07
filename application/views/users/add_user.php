@@ -191,7 +191,7 @@
 
                     <td>
                         <?php if ($userlists->IS_ACTIVE == 1) {
-                            echo $act = "<a class='btn btn-warning' href='deactiveStatus/$userlists->USER_ID'>Deactivate</a>";;
+                            echo $act = "<a class='btn btn-warning' href='deactiveStatus/$userlists->USER_ID'>Deactivate</a>";
                         } else {
                             echo $act = "<a class='btn btn-success' href='activeStatus/$userlists->USER_ID'>Activate</a>";
                         } ?>
@@ -199,7 +199,7 @@
 
                     <td>
                         <a href='<?= base_url() ?>index.php/users/delete_users/<?= $userlists->USER_ID ?>'
-                           onclick='confirm("Are you sure you want to delete this user?" )' <?php echo $My_Controller->deletePermission ?>
+                           onclick='confirm("Etes vous sur de vouloir supprimer cet Utilisateur?" )' <?php echo $My_Controller->deletePermission ?>
                            class='btn btn-danger'><i class='fa fa-file-text'></i> Supprimer</a>
                     </td>
 

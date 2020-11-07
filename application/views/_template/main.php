@@ -68,7 +68,7 @@
             <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Factures du jour</span>
+                <span class="info-box-text">Factures Aujourdhui</span>
                 <span class="info-box-number"><?= $today_invoices->count; ?>
                     <small></small></span>
             </div>
@@ -82,7 +82,7 @@
             <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Factures du mois</span>
+                <span class="info-box-text">Factures Mois</span>
                 <span class="info-box-number"><?= $thisMonth_invoices->count; ?></span>
             </div>
             <!-- /.info-box-content -->
@@ -99,7 +99,7 @@
             <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Ventes d'aujourd'hui</span>
+                <span class="info-box-text">Ventes Aujourd'hui</span>
                 <span class="info-box-number"><?php foreach ($today_sales as $today_sale) {
                         echo $today_sale->sales_amount_total;
                     } ?></span>
@@ -114,7 +114,7 @@
             <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Ventes du mois</span>
+                <span class="info-box-text">Ventes Mois</span>
                 <span class="info-box-number"><?php foreach ($today_sales as $today_sale) {
                         echo $today_sale->sales_amount_total;
                     } ?></span>
@@ -130,7 +130,8 @@
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">
-Liste des utilisateurs</h3>
+                    Liste des utilisateurs
+                </h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -169,7 +170,15 @@ Liste des utilisateurs</h3>
                                 </tr>
                             <?php endforeach;
                         } else {
-                            echo "<tr><td>No Records Found</td></tr>";
+                            echo "<tr><td>Liste Vide
+
+
+
+
+
+
+
+                            ++</td></tr>";
                         } ?>
                         </tbody>
                     </table>
@@ -189,7 +198,7 @@ Liste des utilisateurs</h3>
                     <h2 align="center">Rechercher des employés</h2>
                     <br/><br/>
                     <div align="center">
-                        <input type="text" name="search" id="search" placeholder="Search Employee Details"
+                        <input type="text" name="search" id="search" placeholder="Chercher détails employés"
                                class="form-control input-medium"/>
                     </div>
                     <ul class="list-group" id="result"></ul>
@@ -212,8 +221,7 @@ Liste des utilisateurs</h3>
                 <table class="table table-hover personal-task">
                     <tbody>
                     <tr>
-                        <td>
-Quantité d'article</td>
+                        <td>Quantité d'article</td>
                         <td>Nom</td>
                         <td>Prix</td>
                     </tr>
@@ -238,7 +246,6 @@ Quantité d'article</td>
                 }
                 ?>
                 </span> <span class="time">
-                <?php //echo $daily_st->category_name;?>
                 </span></td>
                             <td><a href="#"><?php echo $daily_st->item_name; ?></a></td>
                             <td><span class="price"><?php echo $daily_st->stock_rate; ?></span></td>
@@ -256,7 +263,7 @@ Quantité d'article</td>
     </div>
 
     <div class="col-md-8">
-        <!-- TABLE: LATEST ORDERS -->
+        <TABLE: LATEST ORDERS>
         <div class="box box-warning">
             <div class="box-header with-border box-green">
                 <h3 class="box-title">Derniers achats</h3>
@@ -271,42 +278,44 @@ Quantité d'article</td>
                         <th>Date</th>
                         <th>Statut</th>
                         <th>Total d'achat</th>
-                        <th>Vue</th>
+                    
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $i=0; ?>
                     <?php foreach ($due_amounts as $due_amount) : ?>
+                        <?php 
+                        if($i==12){ 
+                        break;
+                        }?>
                         <tr>
                             <td>
-                                <a href="<?= base_url(); ?>index.php/purchase/show_purchase_history/<?= $due_amount->purchase_no ?>"><?= $due_amount->purchase_no; ?></a>
+                                <?= $due_amount->purchase_no; ?>
                             </td>
                             <td><?= $due_amount->vendor_name; ?></td>
                             <td><?= date("d-m-Y", strtotime($due_amount->purchase_date)); ?></td>
                             <td>
-                                <span class="label label-warning">EN ATTENTE</span>
+                                <span class="label label-warning">Effectués</span>
 
                             </td>
                             <td>FCFA. <?= $due_amount->grand_total; ?></td>
-                            <td>
-                                <a href="<?= base_url(); ?>index.php/purchase/show_purchase_history/<?= $due_amount->purchase_no ?>"
-                                   class="btn btn-info">Voir l'achat</a>
-
-                            </td>
+                        
                         </tr>
+                        <?php $i++; ?>
                     <?php endforeach; ?>
                     </tbody>
                 </table>
-            </div><!-- /.box-body -->
-            <!-- /.box-footer -->
+            </div><!--/.box-body-->
+            <!--/.box-footer-->
         </div><!-- /.box -->
-    </div><!-- /.col -->
+    </div--><!-- /.col -->
 
 </div>
 
-<div class="row">
+<!--div class="row">
     <div class="col-md-4">
         <div class="box"><!-- /primary heading -->
-            <div class="box-heading">
+            <!--div class="box-heading">
                 <h4 class="box-title text-dark text-uppercase">
                 Top 5 des produits les plus vendus en juin </h4>
             </div>
@@ -318,29 +327,29 @@ Quantité d'article</td>
                         <tr>
                             <th>Sl</th>
                             <th>
-code à barre</th>
+                                code à barre</th>
                             <th>Nom du produit</th>
                             <th>Qté</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <?php if (!empty($topsales)) {
+                        <!--?php if (!empty($topsales)) {
                             $i = 1;
                             foreach ($topsales as $topsale) : ?>
 
                                 <tr>
-                                    <td><?= $i; ?></td>
-                                    <td><?= $topsale->item_id; ?></td>
-                                    <td><?= $topsale->item_name; ?></td>
-                                    <td><?= $topsale->sales_qty; ?></td>
+                                    <td><!--?= $i; ?></td>
+                                    <td><!--?= $topsale->item_id; ?></td>
+                                    <td><!--?= $topsale->item_name; ?></td>
+                                    <td><!--?= $topsale->sales_qty; ?></td>
                                 </tr>
 
-                                <?php $i++; endforeach;
+                                <!--?php $i++; endforeach;
                         } else { ?>
                             <tr style="column-span: 4">
                                 <td><strong>Aucun enregistrement trouvé</strong></td>
                             </tr>
-                        <?php } ?>
+                        <!--?php } ?>
                         </tbody>
                     </table>
 
@@ -350,9 +359,9 @@ code à barre</th>
     </div>
     <div class="col-md-4">
         <div class="box light bordered"><!-- /primary heading -->
-            <div class="box-heading">
+            <!--div class="box-heading">
                 <h4 class="box-title text-dark text-uppercase">
-                Top 5 des produits les plus vendus <?=date('Y');?> </h4>
+                Top 5 des produits les plus vendus <!?=date('Y');?> </h4>
             </div>
             <div id="box2" class="panel-collapse collapse in">
                 <div class="box-body" style="height: 400px">
@@ -367,29 +376,29 @@ code à barre</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <?php if (!empty($topSalesYear)) {
+                        <!--?php if (!empty($topSalesYear)) {
                             $i = 1;
                             foreach ($topSalesYear as $topsale) : ?>
 
                                 <tr>
-                                    <td><?= $i; ?></td>
-                                    <td><?= $topsale->item_id; ?></td>
-                                    <td><?= $topsale->item_name; ?></td>
-                                    <td><?= $topsale->sales_qty; ?></td>
+                                    <td><!--?= $i; ?></td>
+                                    <td><!--?= $topsale->item_id; ?></td>
+                                    <td><!--?= $topsale->item_name; ?></td>
+                                    <td><!--?= $topsale->sales_qty; ?></td>
                                 </tr>
 
-                                <?php $i++; endforeach;
+                                <!--?php $i++; endforeach;
                         } else { ?>
                             <tr style="column-span: 4">
                                 <td><strong>Aucun enregistrement trouvé</strong></td>
                             </tr>
-                        <?php } ?>
+                        <!--?php } ?>
                         </tbody>
                     </table>
 
                 </div>
             </div>
         </div>
-    </div>
+    </div-->
 
 </div>

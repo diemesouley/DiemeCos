@@ -15,18 +15,18 @@
                     <?php echo form_open('reports/purchaseReport',array('class'=>"form-horizontal form-bordered form-validate",'method'=>'post'))?>
                     <div class="row">
                         <div class="col-lg-6">
-                            <label class="control-label">DATE DE DÉBUT</label>
-                            <input type="text" data-ad-format="" class="form-control datepicker" name="start_date">
+                            <label class="control-label">DATE DÉBUT</label>
+                            <input type="text" data-ad-format="" class="form-control datepicker" required="required" name="start_date">
                         </div>
                         <div class="col-lg-6">
-                            <label class="control-label">DATE DE FIN</label>
-                            <input type="text" class="form-control datepicker" name="end_date">
+                            <label class="control-label">DATE FIN</label>
+                            <input type="text" data-ad-format="" class="form-control datepicker" required="required" name="end_date">
                         </div>
                     </div>
                     <br>
                     <div class="form-actions">
                         <input type="hidden" name="Action" value="Search">
-                        <button type="submit" class="btn btn-success" >Rapport d'Emission</button>
+                        <button type="submit" class="btn btn-success" >Afficher Rapport</button>
                         <button type="reset" class="btn">Fermer</button>
                     </div>
                 </form>
@@ -58,7 +58,7 @@
 
                             <header class="clearfix">
                                 <div id="logo">
-                                    <img src="<?=base_url()?>uploads/images/<?=$company->logo;?>">
+                                   
                                 </div>
                                 <div id="company">
                                     <h2 class="name"><?=$company->name;?></h2>
@@ -102,13 +102,20 @@
                                             <th class="unit text-left">Prix ​​d'Achat Unit</th>
                                             <th class="unit text-left">Prix ​​de Vente</th>
                                             <th class="qty text-left">Qté Achat</th>
-                                            <th class="qty text-left">Qté Vendue</th>
                                             <th class="qty text-left">Qté Restant</th>
 
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <?php $k = 1 ?>
+                                        <?php $k = 1 ;
+                                         ?>
+                                        <?php
+                                            $key = 0;
+                                            $total_cost = 0;
+                                            $total_sell = 0;
+                                            $total_profit = 0;
+                                            $qtéVendue = 0 ;
+                                            ?>
                                         <?php if (!empty($order_details)): foreach ($order_details as $v_order) : ?>
                                             <tr>
                                                 <td class="no"><?php echo $k ?></td>
@@ -119,12 +126,16 @@
                                                $sales_qty = $v_order->purchase_qty;
                                                $total_buying_price += $v_order->purchase_rate;
                                                $t = $sales_qty * $total_buying_price;
+                                               $qtéVendue +=  $v_order->stock_qty - $v_order->purchase_qty;
+                                               $totBen = $v_order->purchase_qty * $v_order->stock_rate;
+                                               $prof = ($v_order->stock_rate * $qtéVendue) - ($v_order->purchase_rate * $qtéVendue);
+                                               $totalVente = $v_order->stock_rate * $qtéVendue;
+                                               $totalAchat = $v_order->purchase_rate * $qtéVendue;
                                                 ?>
-                                                <td class="qty"><?php echo number_format($v_order->stock_rate); ?></td>
-                                                <td class="qty"><?php echo $v_order->purchase_qty ?></td>
-												<td class="unit"><?php echo $v_order->purchase_amount ?></td>
                                                 
-                                                <td class="total"><?php echo $v_order->purchase_amount  ?></td>
+                                                <td class="qty"><?php echo number_format($v_order->stock_rate); ?></td>
+                                                <td class="qty"><?php echo $v_order->purchase_qty ?></td>												
+                                                <td class="total"><?php echo $v_order->stock_qty  ?></td>
                                             </tr>
                                             <?php $k++ ?>
                                             <?php $total_cost += $v_order->purchase_rate * $sales_qty; ?>
@@ -147,23 +158,24 @@
                                         <?php endif; ?>
 
                                         <tr>
-                                            <td colspan="3"></td>
-                                            <td colspan="2">Somme Finale</td>
-                                            <td><?php echo  $order[$key]->grand_total ?></td>
+                                            <td colspan="1"></td>
+                                            <td colspan="1">Total</td>
+                                            <td><?php echo  $totBen; ?></td>
                                         </tr>
-                                        
+                                        <!--tr>
+                                            <td colspan="1"></td>
+                                            <td colspan="1">Profit</td>
+                                            <td><!?php echo $prof; ?></td>
+                                        </tr-->
                                         </tfoot>
                                         <?php
                                         $total_sell += $order[$key]->grand_total;
-                                        $total_profit += $order[$key]->grand_total - $t;
+                                        $total_profit += $totalVente - $totalAchat;
                                         ?>
 
                                     </table>
                                     <?php $key++; ?>
                                 <?php endforeach; endif; ?>
-
-                                
-
 
                             </main>
                             <hr>

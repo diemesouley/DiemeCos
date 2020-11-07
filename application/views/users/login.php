@@ -22,8 +22,8 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="<?= base_url(); ?>assets/index2.html"><b><?php $logo = $this->db->get_where('company_information', array('id' => 1))->row(); ?>
-                <img src="<?= base_url() ?>uploads/images/<?= $logo->logo; ?>"></b></a>
+        <!--a href="<!?= base_url(); ?>assets/index2.html"><b><!?php $logo = $this->db->get_where('company_information', array('id' => 1))->row(); ?>
+                <img src="<!?= base_url() ?>uploads/images/<!?= $logo->logo; ?>"></b></a-->
     </div>
 
     <?php if ($this->session->flashdata('register')) {

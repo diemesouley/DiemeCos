@@ -5,7 +5,7 @@
 
             source: function(request, response) {
                 $.ajax({
-                    url: "<?php echo site_url('sales/autocomplete'); ?>",
+                    url: "<?php echo site_url('index.php/sales/autocomplete'); ?>",
                     data: { name: $("#item").val()},
                     dataType: "json",
                     type: "POST",
@@ -21,7 +21,7 @@
     function getSales(cont)
     {
         //alert(cont);
-        $.post("<?=base_url();?>sales/display_sales_return/",{salesno:cont},function(page_response)
+        $.post("<?=base_url();?>index.php/sales/display_sales_return/",{salesno:cont},function(page_response)
 //$.post("view/get_inst.php",{inst:cont},function(rep3)
         {
             //7alert(page_response);
@@ -33,7 +33,7 @@
 
 </script>
 
-<form role="form" method="post" action="<?=base_url(); ?>sales/insert_sales">
+<form role="form" method="post" action="<?=base_url(); ?>index.php/sales/insert_sales">
 
 
 <div class="row">
@@ -95,7 +95,7 @@
 
         // get the product detail
         $.ajax({
-            url: '<?php echo base_url(); ?>sales/get_selected_product/' +  product_id + '/' + total_number,
+            url: '<?php echo base_url(); ?>index.php/sales/get_selected_product/' +  product_id + '/' + total_number,
             success: function(response)
             {
                 jQuery('#invoice_entry_holder').append(response);

@@ -40,6 +40,54 @@ class Stock extends MY_Controller
 
     }
 
+    // produit defectueux 
+	public function produit_defectueux()
+	{
+		$data['defectueux'] = $this->Main_model->select('produit_defectueux');
+		$data['products'] = $this->Main_model->select('item');
+        $this->header();
+        $this->load->view('stock/defectueux', $data);
+        $this->footer();
+	}
+
+	// insert produit defectueux
+	public function insert_defectueux()
+	{	$item_id = $this->input->post('products');
+		$qty = $this->input->post('qty');
+		$date = $this->input->post('date');
+		$query = $this->Main_model->items_detail($item_id);
+        foreach ($query as $data) {
+			$item_name = $data['item_name'];
+			$item_category =$data['category_name'];
+			$size = $data['size'];
+			$purchase_rate = $data['purchase_rate'];
+		}
+		$date_transform =date('Y-m-d', strtotime($date));
+		$data = array(
+			'item_id' => $item_name." ".$size,
+			'category_id' => $item_category,
+			'prix' => $purchase_rate,
+			'qty' => $qty,
+			'date' => $date_transform
+		);
+
+		$this->db->insert('produit_defectueux',$data);
+		
+		$stock_qte = $this->Main_model->get_quantite($item_id);
+		foreach($stock_qte as $s){
+			$ss = $s['stock_qty']-$qty;
+		}
+
+		$this->Main_model->retour_stock($item_id,$ss);
+
+		$data['defectueux'] = $this->Main_model->select('produit_defectueux');
+		$data['products'] = $this->Main_model->select('item');
+        $this->header();
+        $this->load->view('stock/defectueux', $data);
+        $this->footer();
+		
+	}
+
 
     public function update_stock()
     {
@@ -60,7 +108,7 @@ class Stock extends MY_Controller
       aria-hidden="true">
       &times;
    </button>
-   <span>Record Updated Successfully..!</span>
+   <span>Enregistrement mis à jour avec succés..!</span>
 </div>');
 
         }

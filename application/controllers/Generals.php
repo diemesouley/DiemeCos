@@ -479,7 +479,7 @@ class generals extends MY_Controller
             }
     }
 
-    /*====== CURRENCY SECTION START ======*/
+    /*====== CURRENCY SECTION START ======
     public function change_currency()
     {
         error_reporting(E_ALL);
@@ -491,7 +491,7 @@ class generals extends MY_Controller
 
     }
 
-    /*====== SAVE CURRENCY ======*/
+    /*====== SAVE CURRENCY ======
     public function save_change_currency()
     {
         if ($_POST) {
@@ -510,7 +510,7 @@ class generals extends MY_Controller
                 echo json_encode((["msg_type" => "success", "message" => "Currency Updated Successfully"]));
             }
         }
-    }
+    }*/
 }
 
 ?>

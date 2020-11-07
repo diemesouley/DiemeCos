@@ -29,9 +29,9 @@
                         <li>Invoice Number		: <strong><?= $amount->purchase_no; ?></strong></li>
                         <li>Invoice Date		: <?= $amount->purchase_date; ?></li>
                         <!--<li>Due Date			: 2013-03-20</li>-->
-                        <li>Invoice Status <?php if($amount->due_amount != 0.00){?> <span class="badge bg-important"><?= $amount->due_amount;?></span><?php }?> <?php if($amount->due_amount == 0.00){ echo "<span class='label label-primary'>PAID</span>"; }
+                        <li>Invoice Status <?php if($amount->due_amount != 0.00){?> <span class="badge bg-important"><?= $amount->due_amount;?></span><?php }?> <?php if($amount->due_amount == 0.00){ echo "<span class='label label-primary'>Payé</span>"; }
                             else{
-                                echo "<span class='label label-warning'>NOT PAID</span>";
+                                echo "<span class='label label-warning'>En Attente</span>";
                             }
                             ?></li>
                     </ul>

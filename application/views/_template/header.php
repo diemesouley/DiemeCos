@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/bower_components/morris.js/morris.css">
     <!-- jvectormap -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/bower_components/jvectormap/jquery-jvectormap.css">
+    <!-- select2 -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/bower_components/select2/bootstrap-select.min.css">
     <!-- Date Picker -->
     <link rel="stylesheet"
           href="<?= base_url() ?>assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
@@ -31,7 +33,6 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!--Sweetalert & Toastr-->
     <link rel="stylesheet" href="<?= base_url() ?>assets/toastr.css">
-
     <!-- jQuery 3 -->
     <script src="<?= base_url() ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
     <script  src="<?= base_url() ?>assets/toastr.js"> </script>

@@ -1,4 +1,4 @@
-/*
+﻿/*
 SQLyog Ultimate v11.5 (64 bit)
 MySQL - 10.1.34-MariaDB : Database - kandi_inventory
 *********************************************************************
@@ -76,7 +76,7 @@ CREATE TABLE `company` (
 
 /*Data for the table `company` */
 
-insert  into `company`(`company_id`,`company_name`,`phone_no`,`fax_no`,`email`,`address`) values (0,'NOve Global','333','0000','ABCD@YAHOO.COM','795 Folsom Ave, Suite 600\r\nSan Francisco, CA 94107'),(1,'Nove Global','000','000','www.noveglobal.com',NULL),(2,'Distributer of Fauji serial','0912600103','NIL','NIL',NULL),(3,'National Masala jaat','03459050201','Nil','Nil',NULL);
+insert  into `company`(`company_id`,`company_name`,`phone_no`,`fax_no`,`email`,`address`) values (1,'Nove Global','000','000','www.noveglobal.com',NULL);
 
 /*Table structure for table `company_information` */
 

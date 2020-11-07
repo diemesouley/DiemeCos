@@ -3,11 +3,10 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 /*
- *	@author : Imran Shah
- *  @support: shahmian@gmail.com
- *	date	: 18 April, 2018
+ *	@author : Souleymane  DIEME
+ *  @support: diemesouley@gmail.com
+ *	date	: 18 April, 2019
  *	Kandi Inventory Management System
- * website: kelextech.com
  *  version: 1.0
  */
 class Purchase extends MY_Controller
@@ -38,11 +37,42 @@ class Purchase extends MY_Controller
 
     }
 
+    //payement de dette
+	public function payement_dette(){
+		
+		//$this->Main_model->payement_dette_purchase($purchase_no);
+		$montant_a_payer = $this->input->post('montant');
+		$purchase_no = $this->input->post('purchase_no');
+		$due_amount = $this->input->post('due_amount');
+		$nom_vendeur = $this->input->post('vendor_name');
+		$mydate = $this->input->post('mydate');
+
+		$new_due_amount = $due_amount - $montant_a_payer;
+
+		$data = array(
+			'purchase_no' => $purchase_no,
+			'montant_verser' => $montant_a_payer,
+			'nom_fournisseur' => $nom_vendeur,
+			'date' => date('Y-m-d', strtotime($mydate))
+		);
+
+		$this->db->insert('history_payement_dette_achat',$data);
+        $this->Main_model->payement_dette_purchase($purchase_no,$montant_a_payer);
+
+
+	}
+
+	public function historique_payement_achat(){
+		$data['history_payement_achat'] = $this->Main_model->select('history_payement_dette_achat');
+        $this->header();
+        $this->load->view('purchase/historique_payement_pur', $data);
+        $this->footer();
+	}
     // Loading New Purchase form
     public function new_purchase()
     {
         $data['purchase'] = $this->Main_model->item_cat();
-        $data['products'] = $this->db->query("SELECT * FROM stock AS s, item AS i WHERE  s.stock_qty > 0 AND i.`item_id` = s.`item_id`")->result();
+        $data['products'] = $this->db->query("SELECT * FROM stock AS s, item AS i WHERE  s.stock_qty >= 0 AND i.`item_id` = s.`item_id`")->result();
         $data['vendors'] = $this->Main_model->select('vendor');
         $data['companies'] = $this->Main_model->select('company');
         $data['category'] = $this->Main_model->select('category');

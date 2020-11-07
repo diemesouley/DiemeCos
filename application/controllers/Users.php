@@ -166,7 +166,7 @@ class Users extends MY_Controller
         $this->db->where('USER_ID', $id);
         $this->db->delete('usr_user');
 
-        $this->session->set_userdata('msg', 'User has been deleted successfully');
+        $this->session->set_userdata('msg', 'Utilisateur supprimer avec succé!!!');
         redirect(base_url() . 'index.php/Users/add_user');
 
     }

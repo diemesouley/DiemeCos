@@ -2,11 +2,6 @@
 
 
 /*
- *	@author : Imran Shah
- *  @support: shahmian@gmail.com
- *	date	: 18 October, 2017
- *	Kandi Inventory Management System
- *	http://kelextech.com
  *  version: 1.0
  */
 class Main_model extends MY_Model
@@ -24,6 +19,112 @@ class Main_model extends MY_Model
         $sql = "select * from usr_users";
         $query = $this->cms_db->query($sql);
         return $query->result_array();
+    }
+
+    //La liste des dettes 
+	public function getDette(){
+
+		$this->db->select("s.sales_no,c.customer_name,c.phone_no,c.email,s.balance");
+        $this->db->from('sales as s, customer as c');
+        $this->db->where('s.customer_id = c.customer_id');
+        $this->db->where('s.balance!=0');
+        $query = $this->db->get();
+		return $query->result_array();
+		
+	}
+  
+	//update sales pour payer dettes d'achat 
+	public function payement_dette_purchase($no,$montant)
+	{
+		
+		$this->db->set('due_amount','due_amount-'.$montant,false);
+		$this->db->where('purchase_no',$no);
+		$this->db->update('purchase_company');
+		$this->session->set_flashdata('success', 'Payement de la dette effectué avec succés');
+		redirect(base_url().'index.php/purchase/purchase_history');
+	}
+
+
+		//update sales pour payer dettes vente
+        public function payement_dette_sales($no,$mont,$blc)
+        {
+            $this->db->set('paid','paid+'.$mont,false);
+            $this->db->set('balance',$blc,false);
+            $this->db->where('sales_no',$no);
+            $this->db->update('sales');
+            $this->session->set_flashdata('success', 'Payement de la dette effectué avec succés');
+            redirect(base_url().'index.php/sales/sales_history');
+        }
+	
+	// annuler la commande 
+	public function cancel_sales($no){
+		$this->db->select("item_id,sales_qty");
+		$this->db->from("sales_detail");
+		$this->db->where('sales_no',$no);
+		$query = $this->db->get();
+		return $query->result_array();
+		/*
+		foreach($query->result_array() as $result){
+			$id_i = $result->item_id;
+			$qte= $result->sales_qty;
+			$data['stock_qty']= $this->Main_model->get_quantite($no);
+			$new_qte=$data['stock_qty']+$qte;
+			$this->db->set('stock_qty',$new_qte,false);
+		    $this->db->where('item_id',$id_i);
+		    $this->db->update('stock');
+		}*/
+		/*
+		$this->db->where('sales_no', $no);
+		$this->db->delete('sales_datail');
+		
+		$this->db->where('sales_no', $no);
+		$this->db->delete('sales');
+		*/
+		//redirect(base_url().'index.php/sales/sales_history');
+
+	}
+
+	//retourner le produit dans le stock 
+	public function retour_stock($id,$qte)
+	{
+		$this->db->set('stock_qty',"'".$qte."'",false);
+		$this->db->where('item_id',$id);
+		$this->db->update('stock');
+	}
+	//somme des dettes
+	function somme_dette()
+	{
+		$this->db->select_sum('balance');
+		$query=$this->db->get('sales');
+		return $query->result_array();
+    }
+    
+    //somme dette achats
+    function somme_detteAchat()
+	{
+		$this->db->select_sum('balance');
+		$queryA=$this->db->get('purchase');
+		return $queryA->result_array();
+    }
+
+
+	//get quantie
+	public function get_quantite($id){
+		$this->db->select('stock_qty');
+		$this->db->from('stock');
+		$this->db->where('item_id',$id);
+		$query = $this->db->get();
+		return $query->result_array();	
+	}
+
+    public function get_paid($id)
+    {
+        $this->db->select('sales_amount_total');
+        $this->db->from('sales');
+        $this->db->where('sales_no',$id);
+        $query = $this->db->get();
+		return $query->result_array();	
+
     }
     function bps_table($table, $pr_key)
     {
@@ -611,7 +712,32 @@ ORDER BY pc.sales_no DESC ")->result();
         $query = $this->db->get()->result();
         return $query;
     }
-
+    public function items_detail($item)
+    {
+        $sql = $this->db->select("
+i.item_id,
+i.item_name,
+i.color,
+i.article_no,
+i.category_id,
+i.size,
+i.flag,
+i.purchase_rate,
+c.category_name,
+s.stock_no,
+s.item_id,
+s.stock_qty,
+s.purchase_rate,
+s.stock_rate,
+c.category_id,
+s.category_id")
+            ->from('item AS i,category as c, stock as s')
+            ->where('i.category_id = c.category_id')
+            ->where('s.item_id = i.item_id')->where('c.category_id = s.category_id')
+            ->where('i.category_id = c.category_id')
+            ->where("i.item_id = '$item'")->get();
+        return $sql->result_array();
+    }
 }
 
 

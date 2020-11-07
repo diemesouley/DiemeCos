@@ -109,6 +109,10 @@
               <th>Total:</th>
               <td><?=$amount->grand_total;?></td>
             </tr>
+            <!--tr>
+              <th>Somme restant:</th>
+              <td><!?=$amount->grand_total - paid_amount;?></td>
+            </tr-->
           </table>
         </div>
       </div>
